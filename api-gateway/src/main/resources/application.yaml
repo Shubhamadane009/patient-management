@@ -1,0 +1,64 @@
+server:
+  port: 4004 #API Gateway listens on this port
+##   spring.cloud.gateway.routes =>  route in the tutorial
+## (fix) spring.cloud.gateway.server.webflux.routes => route that fixed the issue of url no
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth-service-route
+              uri: http://auth-service:4005
+              predicates:
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
+
+            ## Route for /api/patients/** to patient-sevice
+            ## REST client -> http;//localhost:4004/api/patients
+            ## API Gateway -> http://patient-service:4000
+            ## PATIENT SERVICE (SPRING BOOT APP) -> /patients -> Patients Array
+            - id: patient-service-route
+              uri: http://patient-service:4000
+              predicates:
+                - Path=/api/patients,/api/patients/**
+              filters:
+                - StripPrefix=1
+                - JwtValidation
+                ##prefix for JwtValidationGatewayFilterFactory class
+                ##so it will apply all the filters to requests routing towards patient-service class
+
+            ## Route for /api/docs/patients to patient-service /v3/api-docs
+            - id: api-docs-patient-route
+              uri: http://patient-service:4000
+              predicates:
+                - Path=/api-docs/patients
+              filters:
+                - RewritePath=/api-docs/patients,/v3/api-docs
+            ## REST client -->  http://localhost:4004/api-docs/patients
+            ## API Gateway --> http://patients-service:4000/v3/api-docs
+
+            - id: api-docs-auth-route
+              uri: http://auth-service:4005
+              predicates:
+                - Path=/api-docs/auth
+              filters:
+                - RewritePath=/api-docs/auth,/v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway, health
+  endpoint:
+    gateway:
+      access: unrestricted   # needed on newer Spring Boot Actuator (3.4+/4.x) or the endpoint stays hidden even when exposed
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    reactor.netty.http.client: DEBUG
+
+
+

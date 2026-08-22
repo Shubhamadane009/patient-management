@@ -1,0 +1,4 @@
+### GET request to example server
+DELETE localhost:4000/patients/d6775b8d-aaa2-4ff3-9765-9003a359d79c
+
+###
