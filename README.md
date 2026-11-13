@@ -264,6 +264,28 @@ This project explores practical backend engineering concepts:
 
 ---
 
+
+## Technical Documentation
+
+Explore the architecture and engineering decisions behind this project.
+
+| Document | Description |
+|---|---|
+| [System Architecture](docs/architecture.md) | High-level architecture, service responsibilities and communication |
+| [Authentication Flow](docs/authentication-flow.md) | JWT generation, validation and API Gateway security |
+| [Patient Registration Workflow](docs/patient-registration-flow.md) | End-to-end registration flow across services |
+| [gRPC vs Kafka](docs/grpc-vs-kafka.md) | Synchronous RPC vs asynchronous event-driven communication |
+
+### Key Engineering Topics
+
+- Microservices architecture and separation of responsibilities
+- JWT-based authentication and API Gateway security
+- Synchronous inter-service communication using gRPC
+- Asynchronous messaging using Apache Kafka
+- Database persistence using PostgreSQL and Spring Data JPA
+- Distributed system failure handling and consistency considerations
+
+
 **Author:** Shubham Madane
 
 **GitHub:** [Shubhamadane009](https://github.com/Shubhamadane009)
