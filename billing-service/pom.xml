@@ -11,7 +11,7 @@
     <groupId>com.pm</groupId>
     <artifactId>billing-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>billing-service</name>0
+    <name>billing-service</name>
     <description>billing-service</description>
     <url/>
     <licenses>
